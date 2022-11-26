@@ -66,8 +66,25 @@ print(f"Список дронов, не требующих регистраци�
 print("TODO4")
 print()
 
+height = int(input("Введите высоту полета (в метрах):"))
+
+inhabited_locality_check = input("Полет проходит над населенным пунктом?[д/н]").lower()
+while inhabited_locality_check not in ["д", "н"]: 
+  inhabited_locality_check = input("Полет проходит над населенным пунктом?[д/н]").lower()
+if inhabited_locality_check == "н": inhabited_locality_check = False
+
+close_zone_check = input("Полет проходит в закрытой зоне?[д/н]").lower()
+while close_zone_check not in ["д", "н"]:
+  close_zone_check = input("Полет проходит в закрытой зоне?[д/н]").lower()
+if close_zone_check == "н": close_zone_check = False
+
+visibility_check = input("Полет проходит в прямой видимости?[д/н]").lower()
+while visibility_check not in ["д", "н"]:
+  visibility_check = input("Полет проходит в прямой видимости?[д/н]").lower()
+if visibility_check == "д": visibility_check = False
+
 for drone, weight in zip(drone_list,  drone_weight_list):
-  if weight > 150:
+  if (height > 150) or (inhabited_locality_check and weight > 150) or close_zone_check or visibility_check:
       print(f"Полет для дрона '{drone}' при данных условиях обязательно необходимо согласовать")
   else:
       print(f"Полет для дрона '{drone}' не обязательно согласовывать при данных условиях")
